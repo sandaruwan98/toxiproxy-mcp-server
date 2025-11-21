@@ -1,2 +1,8 @@
 node_modules/
 build/
+
+# Docker volumes and data
+docker-compose.override.yml
+.env.docker
+postgres_data/
+rabbitmq_data/

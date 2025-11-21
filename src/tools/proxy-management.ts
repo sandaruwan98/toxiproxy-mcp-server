@@ -33,7 +33,7 @@ export function registerProxyManagementTools(server: McpServer) {
       return {
         content: [{
           type: "text",
-          text: `✅ Database proxy created successfully!\n\n**Proxy Details:**\n- Name: ${name}\n- Listen: 0.0.0.0:${actualProxyPort}\n- Upstream: ${actualUpstream}\n- Status: Enabled\n\n**Next Step - Port Forwarding:**\nRun this command to redirect traffic from port ${dbPort} to the proxy:\n\n\`\`\`bash\n${iptablesCommand}\n\`\`\`\n\n**To remove the rule later:**\n\`\`\`bash\nsudo iptables -t nat -D PREROUTING -p tcp --dport ${dbPort} -j REDIRECT --to-port ${actualProxyPort}\n\`\`\``
+          text: `✅ Database proxy created successfully!\n\n**Proxy Details:**\n- Name: ${name}\n- Listen: 0.0.0.0:${actualProxyPort}\n- Upstream: ${actualUpstream}\n- Status: Enabled\n\n**Next Step - Port Forwarding:**\nRun this command to redirect traffic from port ${dbPort} to the proxy:\n\n\`\`\`bash\n${iptablesCommand}\n\`\`\`\n\n**IMPORTANT - Restart Application:**\nAfter adding the iptables rule, restart your application container:\n\n\`\`\`bash\n# Find your application container\ndocker ps\n\n# Restart the container (replace with your container name/id)\ndocker restart <container_name>\n\`\`\`\n\n**To remove the rule later:**\n\`\`\`bash\nsudo iptables -t nat -D PREROUTING -p tcp --dport ${dbPort} -j REDIRECT --to-port ${actualProxyPort}\n\`\`\``
         }]
       };
     } catch (error) {
@@ -77,7 +77,7 @@ export function registerProxyManagementTools(server: McpServer) {
       return {
         content: [{
           type: "text",
-          text: `✅ RabbitMQ proxy created successfully!\n\n**Proxy Details:**\n- Name: ${name}\n- Listen: 0.0.0.0:${actualProxyPort}\n- Upstream: ${actualUpstream}\n- Status: Enabled\n\n**Next Step - Port Forwarding:**\nRun this command to redirect traffic from port ${actualAmqpPort} to the proxy:\n\n\`\`\`bash\n${iptablesCommand}\n\`\`\`\n\n**To remove the rule later:**\n\`\`\`bash\nsudo iptables -t nat -D PREROUTING -p tcp --dport ${actualAmqpPort} -j REDIRECT --to-port ${actualProxyPort}\n\`\`\``
+          text: `✅ RabbitMQ proxy created successfully!\n\n**Proxy Details:**\n- Name: ${name}\n- Listen: 0.0.0.0:${actualProxyPort}\n- Upstream: ${actualUpstream}\n- Status: Enabled\n\n**Next Step - Port Forwarding:**\nRun this command to redirect traffic from port ${actualAmqpPort} to the proxy:\n\n\`\`\`bash\n${iptablesCommand}\n\`\`\`\n\n**IMPORTANT - Restart Application:**\nAfter adding the iptables rule, restart your application container:\n\n\`\`\`bash\n# Find your application container\ndocker ps\n\n# Restart the container (replace with your container name/id)\ndocker restart <container_name>\n\`\`\`\n\n**To remove the rule later:**\n\`\`\`bash\nsudo iptables -t nat -D PREROUTING -p tcp --dport ${actualAmqpPort} -j REDIRECT --to-port ${actualProxyPort}\n\`\`\``
         }]
       };
     } catch (error) {
